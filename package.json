@@ -1,0 +1,14 @@
+{
+  "name": "cukes-js",
+  "version": "0.0.1",
+  "description": "Typescript project for running CucumberJS",
+  "main": "index.ts",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Tommy May III",
+  "license": "MIT",
+  "devDependencies": {
+    "typescript": "^2.4.2"
+  }
+}
