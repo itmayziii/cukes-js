@@ -4,8 +4,9 @@
   "description": "Typescript project for running CucumberJS",
   "main": "index.ts",
   "scripts": {
+    "build": "tsc",
     "test:javascript-examples": "cucumber-js ./examples/javascript/features",
-    "test:typescript-examples": ""
+    "test:typescript-examples": "tsc -p ./examples/typescript && cucumber-js ./examples/typescript/features"
   },
   "author": "Tommy May III",
   "license": "MIT",

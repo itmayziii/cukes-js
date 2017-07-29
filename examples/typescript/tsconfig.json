@@ -7,15 +7,15 @@
     "noImplicitAny": true,
     "removeComments": true,
     "preserveConstEnums": true,
-    "outDir": "./examples/typescript/features",
+    "outDir": "./",
     "sourceMap": true,
-    "rootDir": "./examples/typescript/src"
+    "rootDir": "./src"
   },
   "include": [
-    "./examples/typescript/src/**/*"
+    "./src/**/*"
   ],
   "exclude": [
-    "node_modules",
+    "../../node_modules",
     "**/*.spec.ts"
   ]
 }
