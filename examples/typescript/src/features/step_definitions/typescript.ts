@@ -1,4 +1,4 @@
-import { Given, When, Then } from '../../../../src/step-definitions/index';
+import { Given, When, Then } from '../../../../../src/step-definitions/index';
 
 Given(/^I work$/, function () {
     console.log('Calling step I WORK');
