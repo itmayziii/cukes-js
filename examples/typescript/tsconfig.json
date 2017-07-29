@@ -1,0 +1,21 @@
+{
+  "compilerOptions": {
+    "baseUrl": "",
+    "module": "CommonJS",
+    "target": "ES6",
+    "moduleResolution": "node",
+    "noImplicitAny": true,
+    "removeComments": true,
+    "preserveConstEnums": true,
+    "outDir": "./examples/typescript/features",
+    "sourceMap": true,
+    "rootDir": "./examples/typescript/src"
+  },
+  "include": [
+    "./examples/typescript/src/**/*"
+  ],
+  "exclude": [
+    "node_modules",
+    "**/*.spec.ts"
+  ]
+}
