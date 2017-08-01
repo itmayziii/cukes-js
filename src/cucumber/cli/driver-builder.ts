@@ -3,15 +3,9 @@ import { CommanderStatic } from "commander";
 
 export class DriverBuilder {
 
-    public static build(commander: CommanderStatic): ThenableWebDriver {
-        const browser = DriverBuilder.getBrowser(commander);
+    public static build(browser: string): ThenableWebDriver {
         const capabilities = DriverBuilder.getCapabilities(browser);
-
         return new Builder().forBrowser(browser).withCapabilities(capabilities).build();
-    }
-
-    private static getBrowser(commander: CommanderStatic): string {
-        return (commander.browser) ? commander.browser : 'chrome';
     }
 
     private static getCapabilities(browser: string): Capabilities {

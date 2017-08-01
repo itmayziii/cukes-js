@@ -6,9 +6,23 @@ before_1.Before(() => {
     console.log('BEFORE HOOK CALLED');
 });
 index_1.Given(/^I search for the term cucumber$/, function () {
-    return console.log('I searched for cucumber');
+    setTimeout(() => {
+        return console.log('GOOGLE: I search for the term cucumber');
+    }, 3000);
 });
 index_1.Then(/^I expect to see google search results$/, function () {
-    return console.log('I expect search results');
+    setTimeout(() => {
+        return console.log('GOOGLE: I expect to see google search results');
+    }, 4000);
+});
+index_1.Given(/^I search form cukes-js$/, function () {
+    setTimeout(() => {
+        return console.log('GITHUB: I search form cukes-js');
+    }, 3500);
+});
+index_1.Then(/^I expect to find this library$/, function () {
+    setTimeout(() => {
+        return console.log('GITHUB: I expect to find this library');
+    }, 2000);
 });
 //# sourceMappingURL=google.steps.js.map
