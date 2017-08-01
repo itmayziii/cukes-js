@@ -1,10 +1,9 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-const browser_builder_1 = require("./browser-builder");
+const driver_builder_1 = require("./driver-builder");
 class CucumberExecuter {
     execute(cli) {
-        const browser = browser_builder_1.BrowserBuilder.build(cli);
-        console.log(browser);
+        const driver = driver_builder_1.DriverBuilder.build(cli);
     }
 }
 exports.CucumberExecuter = CucumberExecuter;

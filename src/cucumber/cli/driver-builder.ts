@@ -1,11 +1,11 @@
 import { Builder, Capabilities, ThenableWebDriver } from "selenium-webdriver";
 import { CommanderStatic } from "commander";
 
-export class BrowserBuilder {
+export class DriverBuilder {
 
     public static build(commander: CommanderStatic): ThenableWebDriver {
-        const browser = BrowserBuilder.getBrowser(commander);
-        const capabilities = BrowserBuilder.getCapabilities(browser);
+        const browser = DriverBuilder.getBrowser(commander);
+        const capabilities = DriverBuilder.getCapabilities(browser);
 
         return new Builder().forBrowser(browser).withCapabilities(capabilities).build();
     }

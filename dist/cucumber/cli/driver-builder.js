@@ -1,10 +1,10 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 const selenium_webdriver_1 = require("selenium-webdriver");
-class BrowserBuilder {
+class DriverBuilder {
     static build(commander) {
-        const browser = BrowserBuilder.getBrowser(commander);
-        const capabilities = BrowserBuilder.getCapabilities(browser);
+        const browser = DriverBuilder.getBrowser(commander);
+        const capabilities = DriverBuilder.getCapabilities(browser);
         return new selenium_webdriver_1.Builder().forBrowser(browser).withCapabilities(capabilities).build();
     }
     static getBrowser(commander) {
@@ -34,5 +34,5 @@ class BrowserBuilder {
         return capabilities;
     }
 }
-exports.BrowserBuilder = BrowserBuilder;
-//# sourceMappingURL=browser-builder.js.map
+exports.DriverBuilder = DriverBuilder;
+//# sourceMappingURL=driver-builder.js.map
