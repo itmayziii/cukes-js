@@ -8,10 +8,12 @@ import { PathLike } from "fs";
 export class CucumberExecuter {
     private featureDirectory: PathLike;
     private browser: string;
+    private maxProcesses: number;
 
     public constructor(cli: CommanderStatic) {
         this.featureDirectory = (cli.features || './features');
         this.browser = (cli.browser || 'chrome');
+        this.maxProcesses = (cli.maxProcesses || 5);
     }
 
     public execute() {
@@ -27,13 +29,9 @@ export class CucumberExecuter {
     }
 
     private startCucumber(featureFiles: PathLike[]) {
+        const cucumberExecutable = path.resolve(__dirname, '../../../node_modules/.bin/cucumberjs');
         featureFiles.forEach((file) => {
-            const cucumberExecutable = path.resolve(__dirname, '../../../node_modules/.bin/cucumberjs');
             const featureFilePath = path.resolve(this.featureDirectory, file);
-
-            console.log('CUCUMBER EXECUTABLE', cucumberExecutable);
-            console.log('FEATURE FILE PATH', featureFilePath);
-
             childProcess.fork(cucumberExecutable, [featureFilePath]);
         });
     }
