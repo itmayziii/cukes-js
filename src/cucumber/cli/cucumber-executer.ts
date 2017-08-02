@@ -47,7 +47,7 @@ export class CucumberExecuter {
         const cucumberExecutable = path.resolve(__dirname, '../../../node_modules/.bin/cucumberjs');
         featureFiles.forEach((file) => {
             const featureFilePath = path.resolve(this.featureDirectory, file);
-            childProcess.fork(cucumberExecutable, [], {execArgv: [featureFilePath]});
+            childProcess.fork(cucumberExecutable, [featureFilePath]);
         });
     }
 }
