@@ -2,3 +2,4 @@
 node_modules/
 examples/typescript/features/
 !examples/typescript/features/*.feature
+cucumber-output/
