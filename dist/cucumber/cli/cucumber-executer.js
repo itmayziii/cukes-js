@@ -5,9 +5,9 @@ const path = require("path");
 const fs = require("fs");
 class CucumberExecuter {
     constructor(cli) {
+        this.outputDirectory = path.resolve(__dirname, '../../../cucumber-output');
         this.featureDirectory = (cli.features || './features');
-        this.browser = (cli.browser || 'chrome');
-        this.maxProcesses = (cli.maxProcesses || 5);
+        this.maxProcesses = (cli.processes || 5);
     }
     execute() {
         this.listFeatureFiles().then((featureFiles) => {
@@ -20,24 +20,38 @@ class CucumberExecuter {
                 if (error) {
                     reject(error);
                 }
-                else {
-                    const featureFiles = files.filter((file) => {
-                        return file.endsWith('.feature');
-                    });
-                    console.log(featureFiles);
-                    resolve(featureFiles);
-                }
+                const featureFiles = files.filter((file) => {
+                    return file.endsWith('.feature');
+                });
+                resolve(featureFiles);
             });
         });
     }
     startCucumber(featureFiles) {
-        const cucumberExecutable = path.resolve(__dirname, '../../../node_modules/.bin/cucumberjs');
-        featureFiles.forEach((file) => {
-            const featureFilePath = path.resolve(this.featureDirectory, file);
-            const outputFilePath = path.resolve(__dirname, '../../../cucumber-output/', file + '.json');
-            console.log(outputFilePath);
-            const outputDirectory = path.resolve(__dirname, '../../../cucumber-output');
-            childProcess.fork(cucumberExecutable, ['-f', `json:${outputFilePath}`, featureFilePath]);
+        this.clearOutputDirectory().then(() => {
+            const cucumberExecutable = path.resolve(__dirname, '../../../node_modules/.bin/cucumberjs');
+            featureFiles.forEach((file) => {
+                const featureFilePath = path.resolve(this.featureDirectory, file);
+                const outputFilePath = path.resolve(this.outputDirectory, file + '.json');
+                childProcess.fork(cucumberExecutable, ['-f', `json:${outputFilePath}`, featureFilePath]);
+            });
+        });
+    }
+    clearOutputDirectory() {
+        return new Promise((resolve, reject) => {
+            fs.readdir(this.outputDirectory, (error, files) => {
+                files = files.filter((file) => {
+                    return (file !== '.gitkeep');
+                });
+                if (error) {
+                    reject(error);
+                }
+                files.forEach((file) => {
+                    const fullFilePath = path.resolve(this.outputDirectory, file);
+                    fs.unlinkSync(fullFilePath);
+                });
+                resolve(true);
+            });
         });
     }
 }

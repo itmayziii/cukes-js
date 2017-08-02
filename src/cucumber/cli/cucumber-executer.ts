@@ -1,5 +1,4 @@
 import { CommanderStatic } from 'commander';
-import { DriverBuilder } from './driver-builder';
 import * as childProcess from 'child_process';
 import * as path from 'path';
 import * as fs from 'fs';
@@ -8,16 +7,15 @@ import { PathLike } from "fs";
 
 export class CucumberExecuter {
     private featureDirectory: PathLike;
-    private browser: string;
+    private outputDirectory: PathLike = path.resolve(__dirname, '../../../cucumber-output');
     private maxProcesses: number;
 
     public constructor(cli: CommanderStatic) {
         this.featureDirectory = (cli.features || './features');
-        this.browser = (cli.browser || 'chrome');
-        this.maxProcesses = (cli.maxProcesses || 5);
+        this.maxProcesses = (cli.processes || 5);
     }
 
-    public execute() {
+    public execute(): void {
         this.listFeatureFiles().then((featureFiles) => {
             this.startCucumber(featureFiles);
         });
@@ -28,25 +26,46 @@ export class CucumberExecuter {
             fs.readdir(this.featureDirectory, (error, files) => {
                 if (error) {
                     reject(error);
-                } else {
-                    const featureFiles = files.filter((file) => {
-                        return file.endsWith('.feature');
-                    });
-                    console.log(featureFiles);
-                    resolve(featureFiles)
                 }
+
+                const featureFiles = files.filter((file) => {
+                    return file.endsWith('.feature');
+                });
+                resolve(featureFiles)
+
             })
         });
     }
 
-    private startCucumber(featureFiles: PathLike[]) {
-        const cucumberExecutable = path.resolve(__dirname, '../../../node_modules/.bin/cucumberjs');
-        featureFiles.forEach((file) => {
-            const featureFilePath = path.resolve(this.featureDirectory, file);
-            const outputFilePath = path.resolve(__dirname, '../../../cucumber-output/', file + '.json');
-            console.log(outputFilePath);
-            const outputDirectory = path.resolve(__dirname, '../../../cucumber-output');
-            childProcess.fork(cucumberExecutable, ['-f', `json:${outputFilePath}`, featureFilePath]);
+    private startCucumber(featureFiles: PathLike[]): void {
+        this.clearOutputDirectory().then(() => {
+            const cucumberExecutable = path.resolve(__dirname, '../../../node_modules/.bin/cucumberjs');
+            featureFiles.forEach((file) => {
+                const featureFilePath = path.resolve(this.featureDirectory, file);
+                const outputFilePath = path.resolve(this.outputDirectory, file + '.json');
+                childProcess.fork(cucumberExecutable, ['-f', `json:${outputFilePath}`, featureFilePath]);
+            });
+        });
+    }
+
+    private clearOutputDirectory(): Promise<boolean> {
+        return new Promise((resolve, reject) => {
+            fs.readdir(this.outputDirectory, (error, files) => {
+                files = files.filter((file) => {
+                    return (file !== '.gitkeep');
+                });
+
+                if (error) {
+                    reject(error);
+                }
+
+                files.forEach((file) => {
+                    const fullFilePath = path.resolve(this.outputDirectory, file);
+                    fs.unlinkSync(fullFilePath);
+                });
+
+                resolve(true);
+            });
         });
     }
 }

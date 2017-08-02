@@ -22,8 +22,8 @@ function startCli(packageJson: PackageJson): void {
 
     cli
         .version(packageVersion)
-        .option('-b --browser [selectedBrowser]', 'Browser to run tests against.', getOption)
         .option('-f --features [featureDirectory]', 'Path to look for .feature files', getOption)
+        .option('-p --processes [maxProcesses]', 'Maximum number of processes to run features against', getOption)
         .parse(process.argv);
 
     new CucumberExecuter(cli).execute();
