@@ -6,22 +6,34 @@ before_1.Before(() => {
     console.log('BEFORE HOOK CALLED');
 });
 index_1.Given(/^I search for the term cucumber$/, function () {
-    setTimeout(() => {
-        return console.log('GOOGLE: I search for the term cucumber');
-    }, 3000);
+    return new Promise((resolve, reject) => {
+        setTimeout(() => {
+            console.log('GOOGLE: I search for the term cucumber');
+            resolve();
+        }, 3000);
+    });
 });
 index_1.Then(/^I expect to see google search results$/, function () {
-    setTimeout(() => {
-        return console.log('GOOGLE: I expect to see google search results');
-    }, 4000);
+    return new Promise((resolve, reject) => {
+        setTimeout(() => {
+            console.log('GOOGLE: I expect to see google search results');
+            resolve();
+        }, 3000);
+    });
 });
 index_1.Given(/^I search form cukes-js$/, function () {
-    setTimeout(() => {
-        return console.log('GITHUB: I search form cukes-js');
-    }, 3500);
+    return new Promise((resolve, reject) => {
+        setTimeout(() => {
+            console.log('GITHUB: I search form cukes-js');
+            resolve();
+        }, 3000);
+    });
 });
 index_1.Then(/^I expect to find this library$/, function () {
-    setTimeout(() => {
-        return console.log('GITHUB: I expect to find this library');
-    }, 2000);
+    return new Promise((resolve, reject) => {
+        setTimeout(() => {
+            console.log('GITHUB: I expect to find this library');
+            resolve();
+        }, 3000);
+    });
 });

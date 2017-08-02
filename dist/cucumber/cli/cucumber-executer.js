@@ -31,12 +31,13 @@ class CucumberExecuter {
         });
     }
     startCucumber(featureFiles) {
-        const globals = path.resolve(__dirname, '../../../globals.js');
-        console.log(globals);
         const cucumberExecutable = path.resolve(__dirname, '../../../node_modules/.bin/cucumberjs');
         featureFiles.forEach((file) => {
             const featureFilePath = path.resolve(this.featureDirectory, file);
-            childProcess.fork(cucumberExecutable, [featureFilePath]);
+            const outputFilePath = path.resolve(__dirname, '../../../cucumber-output/', file + '.json');
+            console.log(outputFilePath);
+            const outputDirectory = path.resolve(__dirname, '../../../cucumber-output');
+            childProcess.fork(cucumberExecutable, ['-f', `json:${outputFilePath}`, featureFilePath]);
         });
     }
 }
