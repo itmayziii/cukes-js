@@ -7,4 +7,3 @@ function When(regex, stepDefinitionCode) {
     });
 }
 exports.When = When;
-//# sourceMappingURL=when.js.map

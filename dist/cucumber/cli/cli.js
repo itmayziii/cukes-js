@@ -20,4 +20,3 @@ new cucumber_executer_1.CucumberExecuter(cli).execute();
 function getOption(val) {
     return val;
 }
-//# sourceMappingURL=cli.js.map

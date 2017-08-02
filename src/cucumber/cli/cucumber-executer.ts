@@ -5,6 +5,7 @@ import * as path from 'path';
 import * as fs from 'fs';
 import { PathLike } from "fs";
 
+
 export class CucumberExecuter {
     private featureDirectory: PathLike;
     private browser: string;
@@ -18,6 +19,7 @@ export class CucumberExecuter {
 
     public execute() {
         const driver = DriverBuilder.build(this.browser);
+
         const featureFiles = this.listFeatureFiles();
         this.startCucumber(featureFiles);
     }
@@ -29,10 +31,14 @@ export class CucumberExecuter {
     }
 
     private startCucumber(featureFiles: PathLike[]) {
+        const globals = path.resolve(__dirname, '../../../globals.js');
+        console.log(globals);
+
+
         const cucumberExecutable = path.resolve(__dirname, '../../../node_modules/.bin/cucumberjs');
         featureFiles.forEach((file) => {
             const featureFilePath = path.resolve(this.featureDirectory, file);
-            childProcess.fork(cucumberExecutable, [featureFilePath]);
+            childProcess.fork(cucumberExecutable, [], {execArgv: ['-r', globals, featureFilePath]});
         });
     }
 }

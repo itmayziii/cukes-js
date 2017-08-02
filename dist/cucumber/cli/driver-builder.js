@@ -2,13 +2,9 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 const selenium_webdriver_1 = require("selenium-webdriver");
 class DriverBuilder {
-    static build(commander) {
-        const browser = DriverBuilder.getBrowser(commander);
+    static build(browser) {
         const capabilities = DriverBuilder.getCapabilities(browser);
         return new selenium_webdriver_1.Builder().forBrowser(browser).withCapabilities(capabilities).build();
-    }
-    static getBrowser(commander) {
-        return (commander.browser) ? commander.browser : 'chrome';
     }
     static getCapabilities(browser) {
         let capabilities;
@@ -35,4 +31,3 @@ class DriverBuilder {
     }
 }
 exports.DriverBuilder = DriverBuilder;
-//# sourceMappingURL=driver-builder.js.map

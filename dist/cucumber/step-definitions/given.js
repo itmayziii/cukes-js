@@ -7,4 +7,3 @@ function Given(regex, stepDefinitionCode) {
     });
 }
 exports.Given = Given;
-//# sourceMappingURL=given.js.map

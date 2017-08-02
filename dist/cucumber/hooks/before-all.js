@@ -7,4 +7,3 @@ function BeforeAll(hookCode) {
     });
 }
 exports.BeforeAll = BeforeAll;
-//# sourceMappingURL=before-all.js.map

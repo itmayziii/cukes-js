@@ -1,1 +1,0 @@
-{"version":3,"file":"before-all.js","sourceRoot":"","sources":["../../../src/cucumber/hooks/before-all.ts"],"names":[],"mappings":";;AAAA,qCAAsC;AAGtC,mBAA0B,QAAkB;IACxC,QAAQ,CAAC,iBAAiB,CAAC,UAAU,EAAC,SAAS,EAAC;QAC5C,SAAS,CAAC,QAAQ,CAAC,CAAC;IACxB,CAAC,CAAC,CAAC;AACP,CAAC;AAJD,8BAIC"}

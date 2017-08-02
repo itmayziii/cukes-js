@@ -7,4 +7,3 @@ function Before(hookCode) {
     });
 }
 exports.Before = Before;
-//# sourceMappingURL=before.js.map

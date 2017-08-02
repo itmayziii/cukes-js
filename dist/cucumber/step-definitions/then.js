@@ -7,4 +7,3 @@ function Then(regex, stepDefinitionCode) {
     });
 }
 exports.Then = Then;
-//# sourceMappingURL=then.js.map

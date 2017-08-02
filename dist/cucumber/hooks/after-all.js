@@ -7,4 +7,3 @@ function AfterAll(hookCode) {
     });
 }
 exports.AfterAll = AfterAll;
-//# sourceMappingURL=after-all.js.map

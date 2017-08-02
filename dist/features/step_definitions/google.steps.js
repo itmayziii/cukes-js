@@ -25,4 +25,3 @@ index_1.Then(/^I expect to find this library$/, function () {
         return console.log('GITHUB: I expect to find this library');
     }, 2000);
 });
-//# sourceMappingURL=google.steps.js.map

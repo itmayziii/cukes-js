@@ -7,4 +7,3 @@ function After(hookCode) {
     });
 }
 exports.After = After;
-//# sourceMappingURL=after.js.map
