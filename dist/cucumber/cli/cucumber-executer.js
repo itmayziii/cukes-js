@@ -1,6 +1,5 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-const driver_builder_1 = require("./driver-builder");
 const childProcess = require("child_process");
 const path = require("path");
 const fs = require("fs");
@@ -11,13 +10,24 @@ class CucumberExecuter {
         this.maxProcesses = (cli.maxProcesses || 5);
     }
     execute() {
-        const driver = driver_builder_1.DriverBuilder.build(this.browser);
-        const featureFiles = this.listFeatureFiles();
-        this.startCucumber(featureFiles);
+        this.listFeatureFiles().then((featureFiles) => {
+            this.startCucumber(featureFiles);
+        });
     }
     listFeatureFiles() {
-        return fs.readdirSync(this.featureDirectory).filter((file) => {
-            return file.endsWith('.feature');
+        return new Promise((resolve, reject) => {
+            fs.readdir(this.featureDirectory, (error, files) => {
+                if (error) {
+                    reject(error);
+                }
+                else {
+                    const featureFiles = files.filter((file) => {
+                        return file.endsWith('.feature');
+                    });
+                    console.log(featureFiles);
+                    resolve(featureFiles);
+                }
+            });
         });
     }
     startCucumber(featureFiles) {

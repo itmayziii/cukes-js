@@ -18,15 +18,24 @@ export class CucumberExecuter {
     }
 
     public execute() {
-        const driver = DriverBuilder.build(this.browser);
-
-        const featureFiles = this.listFeatureFiles();
-        this.startCucumber(featureFiles);
+        this.listFeatureFiles().then((featureFiles) => {
+            this.startCucumber(featureFiles);
+        });
     }
 
-    private listFeatureFiles() {
-        return fs.readdirSync(this.featureDirectory).filter((file) => {
-            return file.endsWith('.feature');
+    private listFeatureFiles(): Promise<PathLike[]> {
+        return new Promise((resolve, reject) => {
+            fs.readdir(this.featureDirectory, (error, files) => {
+                if (error) {
+                    reject(error);
+                } else {
+                    const featureFiles = files.filter((file) => {
+                        return file.endsWith('.feature');
+                    });
+                    console.log(featureFiles);
+                    resolve(featureFiles)
+                }
+            })
         });
     }
 
@@ -38,7 +47,7 @@ export class CucumberExecuter {
         const cucumberExecutable = path.resolve(__dirname, '../../../node_modules/.bin/cucumberjs');
         featureFiles.forEach((file) => {
             const featureFilePath = path.resolve(this.featureDirectory, file);
-            childProcess.fork(cucumberExecutable, [], {execArgv: ['-r', globals, featureFilePath]});
+            childProcess.fork(cucumberExecutable, [], {execArgv: [featureFilePath]});
         });
     }
 }
