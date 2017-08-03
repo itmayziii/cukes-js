@@ -12,7 +12,6 @@ class CukesJsCli {
         const packageVersion = packageJson.version;
 
         console.log(`Starting ${packageName} | Version ${packageVersion} | By Tommy May III`);
-        console.log(this.getOption);
 
         cli
             .version(packageVersion)

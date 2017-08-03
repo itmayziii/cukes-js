@@ -1,0 +1,12 @@
+{
+  "extends": "../../tsconfig.json",
+  "compilerOptions": {
+    "outDir": "../../tests-output"
+  },
+  "include": [
+    "jasmine.ts",
+    "../**/*.spec.ts"
+  ],
+  "exclude": [
+  ]
+}

@@ -3,7 +3,7 @@
     "baseUrl": "",
     "module": "CommonJS",
     "target": "ES6",
-    "moduleResolution": "node",
+    "moduleResolution": "Node",
     "noImplicitAny": true,
     "removeComments": true,
     "preserveConstEnums": true,
