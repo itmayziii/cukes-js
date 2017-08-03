@@ -10,6 +10,7 @@ class CukesJsCli {
         const packageName = packageJson.name;
         const packageVersion = packageJson.version;
         console.log(`Starting ${packageName} | Version ${packageVersion} | By Tommy May III`);
+        console.log(this.getOption);
         cli
             .version(packageVersion)
             .option('-f --features [featureDirectory]', 'Path to look for .feature files', this.getOption)
