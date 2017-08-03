@@ -7,6 +7,7 @@ export function readJsonFile(jsonFilePath: PathLike): Promise<any> {
         fs.readFile(jsonFilePath, {encoding: 'UTF8'}, (error, data) => {
             if (error) {
                 reject(error);
+                return;
             }
 
             try {
@@ -23,6 +24,7 @@ export function listFeatureFiles(featureDirectory: PathLike): Promise<PathLike[]
         fs.readdir(featureDirectory, (error, files) => {
             if (error) {
                 reject(error);
+                return;
             }
 
             const featureFiles = files.filter((file) => {
@@ -42,6 +44,7 @@ export function clearOutputDirectory(outputDirectory: PathLike): Promise<boolean
 
             if (error) {
                 reject(error);
+                return;
             }
 
             const promiseToDelete: Promise<boolean>[] = [];
@@ -62,6 +65,7 @@ export function deleteFile(path: PathLike): Promise<boolean> {
         fs.unlink(path, (error) => {
             if (error) {
                 reject(error);
+                return;
             }
 
             resolve(true);
