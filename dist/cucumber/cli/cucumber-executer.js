@@ -31,7 +31,7 @@ class CucumberExecuter {
         this.clearOutputDirectory().then(() => {
             const numberOfFiles = featureFiles.length;
             let executionsFinished = 0;
-            const cucumberExecutable = path.resolve(__dirname, '../../.bin/cucumberjs');
+            const cucumberExecutable = path.resolve(__dirname, '../../../../.bin/cucumberjs');
             console.log('EXEC FILE PATH: ', cucumberExecutable);
             featureFiles.forEach((file) => {
                 const featureFilePath = path.resolve(this.featureDirectory, file);
