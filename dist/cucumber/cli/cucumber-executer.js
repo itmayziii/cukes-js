@@ -32,7 +32,7 @@ class CucumberExecuter {
             console.log(featureFiles);
             const numberOfFiles = featureFiles.length;
             let executionsFinished = 0;
-            const cucumberExecutable = path.resolve(__dirname, '../../../node_modules/.bin/cucumberjs');
+            const cucumberExecutable = path.resolve(__dirname, '../../../../node_modules/.bin/cucumberjs');
             featureFiles.forEach((file) => {
                 const featureFilePath = path.resolve(this.featureDirectory, file);
                 const outputFilePath = path.resolve(this.outputDirectory, file + '.json');
