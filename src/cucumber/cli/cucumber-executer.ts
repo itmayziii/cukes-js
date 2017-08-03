@@ -42,7 +42,6 @@ export class CucumberExecuter {
             let executionsFinished: number = 0;
 
             const cucumberExecutable = path.resolve(__dirname, '../../../../.bin/cucumberjs');
-            console.log('EXEC FILE PATH: ', cucumberExecutable);
             featureFiles.forEach((file) => {
                 const featureFilePath = path.resolve(this.featureDirectory, file);
                 const outputFilePath = path.resolve(this.outputDirectory, file + '.json');
@@ -51,7 +50,6 @@ export class CucumberExecuter {
                 process.on('close', (code, signal) => {
                     executionsFinished++;
                     if (numberOfFiles === executionsFinished) {
-                        console.log('I AM FINISHED');
                         const formatterExecutable = path.resolve(__dirname, '../../../cucumber-formatter.js');
                         childProcess.fork(formatterExecutable);
                     }
