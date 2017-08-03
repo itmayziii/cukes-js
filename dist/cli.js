@@ -24,4 +24,6 @@ class CukesJsCli {
 }
 const packageJsonPath = path.resolve(__dirname, '../package.json');
 const cukesJsCli = new CukesJsCli();
-fs_utils_1.readJsonFile(packageJsonPath).then(cukesJsCli.start);
+fs_utils_1.readJsonFile(packageJsonPath).then((packageJson) => {
+    cukesJsCli.start(packageJson);
+});

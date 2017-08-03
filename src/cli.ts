@@ -23,11 +23,13 @@ class CukesJsCli {
         new CucumberExecuter(cli).execute();
     }
 
-    public getOption(val: string): string {
+    private getOption(val: string): string {
         return val;
     }
 }
 
 const packageJsonPath = path.resolve(__dirname, '../package.json');
 const cukesJsCli = new CukesJsCli();
-readJsonFile(packageJsonPath).then(cukesJsCli.start);
+readJsonFile(packageJsonPath).then((packageJson) => {
+    cukesJsCli.start(packageJson);
+});

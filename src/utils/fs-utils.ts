@@ -2,7 +2,7 @@ import * as fs from "fs";
 import { PathLike } from "fs";
 import * as path from "path";
 
-export function readJsonFile(jsonFilePath: PathLike): Promise<object> {
+export function readJsonFile(jsonFilePath: PathLike): Promise<any> {
     return new Promise((resolve, reject) => {
         fs.readFile(jsonFilePath, {encoding: 'UTF8'}, (error, data) => {
             if (error) {
