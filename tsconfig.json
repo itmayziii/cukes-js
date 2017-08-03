@@ -9,13 +9,14 @@
     "preserveConstEnums": true,
     "outDir": "dist",
     "sourceMap": false,
-    "rootDir": "./src"
+    "rootDir": "src"
   },
   "include": [
-    "./src/**/*"
+    "src/**/*"
   ],
   "exclude": [
     "node_modules",
-    "**/*.spec.ts"
+    "**/*.spec.ts",
+    "src/test-config/*"
   ]
 }
