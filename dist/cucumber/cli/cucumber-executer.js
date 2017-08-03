@@ -29,11 +29,25 @@ class CucumberExecuter {
     }
     startCucumber(featureFiles) {
         this.clearOutputDirectory().then(() => {
+            console.log(featureFiles);
+            const numberOfFiles = featureFiles.length;
+            let executionsFinished = 0;
             const cucumberExecutable = path.resolve(__dirname, '../../../node_modules/.bin/cucumberjs');
             featureFiles.forEach((file) => {
                 const featureFilePath = path.resolve(this.featureDirectory, file);
                 const outputFilePath = path.resolve(this.outputDirectory, file + '.json');
-                childProcess.fork(cucumberExecutable, ['-f', `json:${outputFilePath}`, featureFilePath]);
+                const process = childProcess.fork(cucumberExecutable, ['-f', `json:${outputFilePath}`, featureFilePath]);
+                process.on('close', (code, signal) => {
+                    console.log(code, signal);
+                    executionsFinished++;
+                    console.log(executionsFinished);
+                    console.log(numberOfFiles);
+                    if (numberOfFiles === executionsFinished) {
+                        console.log('I AM FINISHED');
+                        const formatterExecutable = path.resolve(__dirname, '../../../cucumber-formatter.js');
+                        childProcess.fork(formatterExecutable);
+                    }
+                });
             });
         });
     }
@@ -59,7 +73,6 @@ class CucumberExecuter {
     }
     deleteFile(path) {
         return new Promise((resolve, reject) => {
-            console.log(path);
             fs.unlink(path, (error) => {
                 if (error) {
                     reject(error);

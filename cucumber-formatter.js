@@ -1,10 +1,13 @@
 var reporter = require('cucumber-html-reporter');
+var path = require('path');
 
+var jsonDir = path.resolve(__dirname, 'cucumber-output');
+var output = path.resolve(__dirname, 'cucumber-output/cucumber_report.html');
 
 var options = {
     theme: 'bootstrap',
-    jsonDir: './cucumber-output',
-    output: './cucumber-output/cucumber_report.html',
+    jsonDir: jsonDir,
+    output: output,
     reportSuiteAsScenarios: true,
     launchReport: true,
     metadata: {
