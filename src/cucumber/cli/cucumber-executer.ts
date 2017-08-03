@@ -42,7 +42,7 @@ export class CucumberExecuter {
             let executionsFinished: number = 0;
 
             const cucumberExecutable = path.resolve(__dirname, '../../.bin/cucumberjs');
-            console.log(cucumberExecutable);
+            console.log('EXEC FILE PATH: ', cucumberExecutable);
             featureFiles.forEach((file) => {
                 const featureFilePath = path.resolve(this.featureDirectory, file);
                 const outputFilePath = path.resolve(this.outputDirectory, file + '.json');
