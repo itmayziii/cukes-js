@@ -46,10 +46,24 @@ class CucumberExecuter {
                 if (error) {
                     reject(error);
                 }
+                const promiseToDelete = [];
                 files.forEach((file) => {
                     const fullFilePath = path.resolve(this.outputDirectory, file);
-                    fs.unlinkSync(fullFilePath);
+                    promiseToDelete.push(this.deleteFile(fullFilePath));
                 });
+                Promise.all(promiseToDelete).then(() => {
+                    resolve(true);
+                });
+            });
+        });
+    }
+    deleteFile(path) {
+        return new Promise((resolve, reject) => {
+            console.log(path);
+            fs.unlink(path, (error) => {
+                if (error) {
+                    reject(error);
+                }
                 resolve(true);
             });
         });

@@ -31,8 +31,7 @@ export class CucumberExecuter {
                 const featureFiles = files.filter((file) => {
                     return file.endsWith('.feature');
                 });
-                resolve(featureFiles)
-
+                resolve(featureFiles);
             })
         });
     }
@@ -45,6 +44,9 @@ export class CucumberExecuter {
                 const outputFilePath = path.resolve(this.outputDirectory, file + '.json');
                 childProcess.fork(cucumberExecutable, ['-f', `json:${outputFilePath}`, featureFilePath]);
             });
+
+            // const formatterExecutable = path.resolve(__dirname, '../../../cucumber-formatter.js');
+            // childProcess.fork(formatterExecutable);
         });
     }
 
@@ -59,10 +61,25 @@ export class CucumberExecuter {
                     reject(error);
                 }
 
+                const promiseToDelete: Promise<boolean>[] = [];
                 files.forEach((file) => {
                     const fullFilePath = path.resolve(this.outputDirectory, file);
-                    fs.unlinkSync(fullFilePath);
+                    promiseToDelete.push(this.deleteFile(fullFilePath));
                 });
+
+                Promise.all(promiseToDelete).then(() => {
+                    resolve(true);
+                });
+            });
+        });
+    }
+
+    private deleteFile(path: PathLike): Promise<boolean> {
+        return new Promise((resolve, reject) => {
+            fs.unlink(path, (error) => {
+                if (error) {
+                    reject(error);
+                }
 
                 resolve(true);
             });
