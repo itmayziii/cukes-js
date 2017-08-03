@@ -6,7 +6,10 @@ import * as path from 'path';
 import { readJsonFile } from "./utils/fs-utils";
 import { PackageJson } from "./models/package-json";
 
-class CukesJsCli {
+export class CukesJsCli {
+    public constructor(private cucumberExecuter: CucumberExecuter) {
+    }
+
     public start(packageJson: PackageJson): void {
         const packageName = packageJson.name;
         const packageVersion = packageJson.version;
@@ -19,7 +22,7 @@ class CukesJsCli {
             .option('-p --processes [maxProcesses]', 'Maximum number of processes to run features against', this.getOption)
             .parse(process.argv);
 
-        new CucumberExecuter(cli).execute();
+        this.cucumberExecuter.execute(cli);
     }
 
     private getOption(val: string): string {
@@ -28,7 +31,8 @@ class CukesJsCli {
 }
 
 const packageJsonPath = path.resolve(__dirname, '../package.json');
-const cukesJsCli = new CukesJsCli();
+const cukesJsCli = new CukesJsCli(new CucumberExecuter());
+
 readJsonFile(packageJsonPath).then((packageJson) => {
     cukesJsCli.start(packageJson);
 });

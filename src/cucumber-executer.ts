@@ -10,12 +10,10 @@ export class CucumberExecuter {
     private outputDirectory: PathLike = path.resolve(__dirname, '../cucumber-output');
     private maxProcesses: number;
 
-    public constructor(cli: CommanderStatic) {
+    public execute(cli: CommanderStatic): void {
         this.featureDirectory = (cli.features || './features');
         this.maxProcesses = (cli.processes || 5);
-    }
 
-    public execute(): void {
         listFeatureFiles(this.featureDirectory).then((featureFiles) => {
             this.startCucumber(featureFiles);
         });
