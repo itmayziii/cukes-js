@@ -1,13 +1,13 @@
 #!/usr/bin/env node
 
 import cli = require('commander');
-import { CucumberExecuter } from './cucumber-executer';
+import { CucumberExecutor } from './cucumber-executor';
 import * as path from 'path';
 import { readJsonFile } from "./utils/fs-utils";
 import { PackageJson } from "./models/package-json";
 
 export class CukesJsCli {
-    public constructor(private cucumberExecuter: CucumberExecuter) {
+    public constructor(private cucumberExecutor: CucumberExecutor) {
     }
 
     public start(packageJson: PackageJson): void {
@@ -22,7 +22,7 @@ export class CukesJsCli {
             .option('-p --processes [maxProcesses]', 'Maximum number of processes to run features against', this.getOption)
             .parse(process.argv);
 
-        this.cucumberExecuter.execute(cli);
+        this.cucumberExecutor.execute(cli);
     }
 
     private getOption(val: string): string {
@@ -31,8 +31,7 @@ export class CukesJsCli {
 }
 
 const packageJsonPath = path.resolve(__dirname, '../package.json');
-const cukesJsCli = new CukesJsCli(new CucumberExecuter());
-
+const cukesJsCli = new CukesJsCli(new CucumberExecutor());
 readJsonFile(packageJsonPath).then((packageJson) => {
     cukesJsCli.start(packageJson);
 });

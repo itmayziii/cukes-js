@@ -11,5 +11,4 @@ j.configureDefaultReporter({
     showColors: true
 });
 
-console.log('Executing Cukes-JS Unit Tests');
 j.execute([], '');

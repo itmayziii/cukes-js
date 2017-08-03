@@ -5,12 +5,12 @@ const path = require("path");
 const fs_utils_1 = require("./utils/fs-utils");
 const cucumber_reporter_1 = require("./cucumber-reporter");
 class CucumberExecuter {
-    constructor(cli) {
+    constructor() {
         this.outputDirectory = path.resolve(__dirname, '../cucumber-output');
+    }
+    execute(cli) {
         this.featureDirectory = (cli.features || './features');
         this.maxProcesses = (cli.processes || 5);
-    }
-    execute() {
         fs_utils_1.listFeatureFiles(this.featureDirectory).then((featureFiles) => {
             this.startCucumber(featureFiles);
         });

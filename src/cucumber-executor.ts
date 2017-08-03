@@ -5,7 +5,7 @@ import { PathLike } from "fs";
 import { listFeatureFiles, clearOutputDirectory } from './utils/fs-utils';
 import { CucumberReporter } from './cucumber-reporter';
 
-export class CucumberExecuter {
+export class CucumberExecutor {
     private featureDirectory: PathLike;
     private outputDirectory: PathLike = path.resolve(__dirname, '../cucumber-output');
     private maxProcesses: number;

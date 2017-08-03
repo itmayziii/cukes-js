@@ -7,8 +7,12 @@ export function readJsonFile(jsonFilePath: PathLike): Promise<any> {
         fs.readFile(jsonFilePath, {encoding: 'UTF8'}, (error, data) => {
             if (error) {
                 reject(error);
-            } else {
+            }
+
+            try {
                 resolve(JSON.parse(data));
+            } catch (e) {
+                reject(e);
             }
         });
     });
