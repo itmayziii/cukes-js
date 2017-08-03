@@ -2,3 +2,4 @@
 node_modules/
 cucumber-output/
 tests-output/
+!tests-output/utils/feature-file.feature

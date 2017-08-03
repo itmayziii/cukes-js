@@ -37,4 +37,12 @@ describe('fs-utils', () => {
 
     });
 
+    describe('listFeatureFiles()', () => {
+
+        it('should return only files ending with .feature given a directory', () => {
+            fsUtils.listFeatureFiles()
+        });
+
+    });
+
 });
