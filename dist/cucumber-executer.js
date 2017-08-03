@@ -6,7 +6,7 @@ const fs_utils_1 = require("./utils/fs-utils");
 const cucumber_reporter_1 = require("./cucumber-reporter");
 class CucumberExecuter {
     constructor(cli) {
-        this.outputDirectory = path.resolve(__dirname, '../../../cucumber-output');
+        this.outputDirectory = path.resolve(__dirname, '../cucumber-output');
         this.featureDirectory = (cli.features || './features');
         this.maxProcesses = (cli.processes || 5);
     }

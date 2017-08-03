@@ -7,7 +7,7 @@ import { CucumberReporter } from './cucumber-reporter';
 
 export class CucumberExecuter {
     private featureDirectory: PathLike;
-    private outputDirectory: PathLike = path.resolve(__dirname, '../../../cucumber-output');
+    private outputDirectory: PathLike = path.resolve(__dirname, '../cucumber-output');
     private maxProcesses: number;
 
     public constructor(cli: CommanderStatic) {
