@@ -1,7 +1,6 @@
 import { PathLike } from "fs";
 import { CucumberReportOptions } from "./models/cucumber-report-options";
 import * as path from "path";
-const reporter = require('cucumber-html-reporter');
 
 export class CucumberReporter {
     private _outputPath: PathLike = path.resolve(__dirname, '../cucumber-output');
@@ -16,8 +15,10 @@ export class CucumberReporter {
         }
     };
 
+    public constructor(private generator: any) {}
+
     public generate() {
-        reporter.generate(this.options)
+        this.generator.generate(this.options)
     }
 
     public get outputPath(): PathLike {

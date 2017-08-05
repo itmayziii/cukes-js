@@ -4,6 +4,7 @@ import * as path from 'path';
 import { PathLike } from "fs";
 import { listFeatureFiles, clearOutputDirectory } from './utils/fs-utils';
 import { CucumberReporter } from './cucumber-reporter';
+const reportGenerator = require('cucumber-html-reporter');
 
 export class CucumberExecutor {
     private featureDirectory: PathLike;
@@ -38,7 +39,7 @@ export class CucumberExecutor {
             process.on('close', () => {
                 executionsFinished++;
                 if (numberOfFiles === executionsFinished) {
-                    new CucumberReporter().generate();
+                    new CucumberReporter(reportGenerator).generate();
                 }
             });
         });
