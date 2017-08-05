@@ -94,7 +94,7 @@ describe('fs-utils', () => {
                 .then(() => {
                     fail('the function did not reject the promise if the file was not deleted');
                 })
-                .catch((error) => {
+                .catch(() => {
                     expect(true).toBe(true);
                 });
         });
@@ -102,7 +102,7 @@ describe('fs-utils', () => {
     });
 
 
-    describe('clearOutputDirectory', () => {
+    describe('clearOutputDirectory()', () => {
         const featureFileLocation = path.resolve(__dirname, 'features');
 
         beforeAll(() => {
@@ -118,6 +118,16 @@ describe('fs-utils', () => {
                 .catch(() => {
                     fail('the function should not reject the promise on successful deletion of files');
                 })
+        });
+
+        it('should reject a promise if the path does not exist', () => {
+            fsUtils.clearOutputDirectory('itmayziii/this-directory-should-not-exist')
+                .then(() => {
+                    fail('the function should not successfully find this directory');
+                })
+                .catch(() => {
+                    expect(true).toBe(true);
+                });
         });
 
     });
