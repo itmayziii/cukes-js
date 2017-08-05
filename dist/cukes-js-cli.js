@@ -2,12 +2,12 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 const cli = require("commander");
-const cucumber_executer_1 = require("./cucumber-executer");
+const cucumber_executor_1 = require("./cucumber-executor");
 const path = require("path");
 const fs_utils_1 = require("./utils/fs-utils");
 class CukesJsCli {
-    constructor(cucumberExecuter) {
-        this.cucumberExecuter = cucumberExecuter;
+    constructor(cucumberExecutor) {
+        this.cucumberExecutor = cucumberExecutor;
     }
     start(packageJson) {
         const packageName = packageJson.name;
@@ -18,7 +18,7 @@ class CukesJsCli {
             .option('-f --features [featureDirectory]', 'Path to look for .feature files', this.getOption)
             .option('-p --processes [maxProcesses]', 'Maximum number of processes to run features against', this.getOption)
             .parse(process.argv);
-        this.cucumberExecuter.execute(cli);
+        this.cucumberExecutor.execute(cli);
     }
     getOption(val) {
         return val;
@@ -26,7 +26,7 @@ class CukesJsCli {
 }
 exports.CukesJsCli = CukesJsCli;
 const packageJsonPath = path.resolve(__dirname, '../package.json');
-const cukesJsCli = new CukesJsCli(new cucumber_executer_1.CucumberExecuter());
+const cukesJsCli = new CukesJsCli(new cucumber_executor_1.CucumberExecutor());
 fs_utils_1.readJsonFile(packageJsonPath).then((packageJson) => {
     cukesJsCli.start(packageJson);
 });

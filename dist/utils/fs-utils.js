@@ -7,9 +7,13 @@ function readJsonFile(jsonFilePath) {
         fs.readFile(jsonFilePath, { encoding: 'UTF8' }, (error, data) => {
             if (error) {
                 reject(error);
+                return;
             }
-            else {
+            try {
                 resolve(JSON.parse(data));
+            }
+            catch (e) {
+                reject(e);
             }
         });
     });
@@ -20,6 +24,7 @@ function listFeatureFiles(featureDirectory) {
         fs.readdir(featureDirectory, (error, files) => {
             if (error) {
                 reject(error);
+                return;
             }
             const featureFiles = files.filter((file) => {
                 return file.endsWith('.feature');
@@ -37,6 +42,7 @@ function clearOutputDirectory(outputDirectory) {
             });
             if (error) {
                 reject(error);
+                return;
             }
             const promiseToDelete = [];
             files.forEach((file) => {
@@ -55,6 +61,7 @@ function deleteFile(path) {
         fs.unlink(path, (error) => {
             if (error) {
                 reject(error);
+                return;
             }
             resolve(true);
         });
