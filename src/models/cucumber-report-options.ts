@@ -1,7 +1,7 @@
 import { PathLike } from "fs";
 
 export interface CucumberReportOptions {
-    theme: string,
+    theme?: string,
     jsonDir?: PathLike,
     jsonFile?: PathLike,
     output?: PathLike,

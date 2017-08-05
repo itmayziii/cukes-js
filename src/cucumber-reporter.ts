@@ -3,11 +3,11 @@ import { CucumberReportOptions } from "./models/cucumber-report-options";
 import * as path from "path";
 
 export class CucumberReporter {
-    private _outputPath: PathLike = path.resolve(__dirname, '../cucumber-output');
+    private defaultOutputPath: PathLike = path.resolve(__dirname, '../cucumber-output');
     private _options: CucumberReportOptions = {
         theme: 'bootstrap',
-        jsonDir: this.outputPath,
-        output: path.resolve(this.outputPath, 'cucumber_report.html'),
+        jsonDir: this.defaultOutputPath,
+        output: path.resolve(this.defaultOutputPath, 'cucumber_report.html'),
         reportSuiteAsScenarios: true,
         launchReport: true,
         metadata: {
@@ -21,19 +21,11 @@ export class CucumberReporter {
         this.generator.generate(this.options)
     }
 
-    public get outputPath(): PathLike {
-        return this._outputPath;
-    }
-
-    public set outputPath(value: PathLike) {
-        this._outputPath = value;
-    }
-
     public get options(): CucumberReportOptions {
         return this._options;
     }
 
     public set options(value: CucumberReportOptions) {
-        this._options = value;
+        this._options = Object.assign(this.options, value);
     }
 }

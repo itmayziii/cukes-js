@@ -14,7 +14,9 @@ describe('cucumber-reporter', () => {
 
         it('should call the generators generate method with the specified options', () => {
             cucumberReporter.options = {
-                theme: 'bootstrap',
+                theme: 'simple',
+                jsonDir: 'src/dist',
+                output: 'src/dist/report.html',
                 metadata: {
                     just: 'A Test'
                 }
@@ -22,7 +24,11 @@ describe('cucumber-reporter', () => {
             cucumberReporter.generate();
             expect(reportGenerator.generate).toHaveBeenCalledTimes(1);
             expect(reportGenerator.generate).toHaveBeenCalledWith({
-                theme: 'bootstrap',
+                theme: 'simple',
+                jsonDir: 'src/dist',
+                output: 'src/dist/report.html',
+                reportSuiteAsScenarios: true,
+                launchReport: true,
                 metadata: {
                     just: 'A Test'
                 }
