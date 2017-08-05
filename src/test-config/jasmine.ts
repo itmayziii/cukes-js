@@ -3,12 +3,12 @@
 import Jasmine = require('jasmine');
 import * as path from "path";
 
-const j = new Jasmine([]);
-const jasmineConfigFile = path.resolve('src/test-config/jasmine.json');
+const jasmine = new Jasmine([]);
+const jasmineConfigFile = path.resolve(__dirname, 'jasmine.json');
 
-j.loadConfigFile(jasmineConfigFile);
-j.configureDefaultReporter({
+jasmine.loadConfigFile(jasmineConfigFile);
+jasmine.configureDefaultReporter({
     showColors: true
 });
 
-j.execute([], '');
+jasmine.execute([], '');
