@@ -37,13 +37,13 @@ exports.listFeatureFiles = listFeatureFiles;
 function clearOutputDirectory(outputDirectory) {
     return new Promise((resolve, reject) => {
         fs.readdir(outputDirectory, (error, files) => {
-            files = files.filter((file) => {
-                return (file !== '.gitkeep');
-            });
             if (error) {
                 reject(error);
                 return;
             }
+            files = files.filter((file) => {
+                return (file !== '.gitkeep');
+            });
             const promiseToDelete = [];
             files.forEach((file) => {
                 const fullFilePath = path.resolve(outputDirectory, file);

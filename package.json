@@ -5,7 +5,7 @@
   "main": "index.ts",
   "scripts": {
     "build": "tsc",
-    "test": "tsc -p src/test-config && node tests-output/test-config/jasmine.js"
+    "test": "rm -rf tests-output && tsc -p src/tests && node tests-output/tests/jasmine.js"
   },
   "author": "Tommy May III",
   "license": "MIT",

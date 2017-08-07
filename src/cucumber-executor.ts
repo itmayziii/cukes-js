@@ -1,9 +1,9 @@
-import { CommanderStatic } from 'commander';
-import * as childProcess from 'child_process';
-import * as path from 'path';
+import { CommanderStatic } from "commander";
+import * as childProcess from "child_process";
+import * as path from "path";
 import { PathLike } from "fs";
-import { listFeatureFiles, clearOutputDirectory } from './utils/fs-utils';
-import { CucumberReporter } from './cucumber-reporter';
+import { clearOutputDirectory, listFeatureFiles } from "./utils/fs-utils";
+import { CucumberReporter } from "./cucumber-reporter";
 const reportGenerator = require('cucumber-html-reporter');
 
 export class CucumberExecutor {
@@ -11,18 +11,16 @@ export class CucumberExecutor {
     private outputDirectory: PathLike = path.resolve(__dirname, '../cucumber-output');
     private maxProcesses: number;
 
-    public execute(cli: CommanderStatic): void {
+    public execute(cli: CommanderStatic): Promise<any> {
         this.featureDirectory = (cli.features || './features');
         this.maxProcesses = (cli.processes || 5);
 
-        listFeatureFiles(this.featureDirectory).then((featureFiles) => {
-            this.startCucumber(featureFiles);
-        });
-    }
-
-    private startCucumber(featureFiles: PathLike[]): void {
-        clearOutputDirectory(this.outputDirectory).then(() => {
-            this.forkCucumberProcesses(featureFiles);
+        return new Promise((resolve, reject) => {
+            Promise.all([listFeatureFiles(this.featureDirectory), clearOutputDirectory(this.outputDirectory)]).then((results) => {
+                const featureFiles = results[0];
+                this.forkCucumberProcesses(featureFiles);
+                resolve();
+            });
         });
     }
 
