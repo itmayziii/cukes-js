@@ -2,19 +2,28 @@ import cli = require('commander');
 import * as path from "path";
 import * as childProcess from "child_process";
 import { CucumberExecutor } from "./cucumber-executor";
-import { createFeatureFiles } from "./tests/test-utilities";
+import { clearFeatureFiles, createFeatureFiles } from "./tests/test-utilities";
 import createSpyObj = jasmine.createSpyObj;
 
 describe('cucumber-executor', () => {
 
     describe('execute', () => {
+        const featureFilePath = path.resolve(__dirname, 'features');
 
-        beforeAll(() => {
-            createFeatureFiles(path.resolve(__dirname, 'features'))
+        beforeAll((done) => {
+            createFeatureFiles(featureFilePath).then(() => {
+                done();
+            });
+        });
+
+        afterAll((done) => {
+            clearFeatureFiles(featureFilePath).then(() => {
+                done();
+            });
         });
 
         it('should call fork 3 times', (done) => {
-            cli.features = path.resolve(__dirname, 'features');
+            cli.features = featureFilePath;
             const cucumberExecutor = new CucumberExecutor();
 
             const processSpy = createSpyObj('processSpy', ['on']);

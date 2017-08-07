@@ -2,9 +2,10 @@ import * as fsUtils from "./fs-utils";
 import * as fs from "fs";
 import { PathLike } from "fs";
 import * as path from "path";
-import { createFeatureFiles } from "../tests/test-utilities";
+import { clearFeatureFiles, createFeatureFiles } from "../tests/test-utilities";
 
 describe('fs-utils', () => {
+    const featureFileLocation = path.resolve(__dirname, 'features');
 
     describe('readJsonFile()', () => {
 
@@ -49,10 +50,17 @@ describe('fs-utils', () => {
     });
 
     describe('listFeatureFiles()', () => {
-        const featureFileLocation = path.resolve(__dirname, 'features');
 
-        beforeAll(() => {
-            createFeatureFiles(featureFileLocation);
+        beforeAll((done) => {
+            createFeatureFiles(featureFileLocation).then(() => {
+                done();
+            });
+        });
+
+        afterAll((done) => {
+            clearFeatureFiles(featureFileLocation).then(() => {
+                done();
+            });
         });
 
         it('should return only files ending with .feature given a directory', (done) => {
@@ -82,10 +90,17 @@ describe('fs-utils', () => {
     });
 
     describe('deleteFile()', () => {
-        const featureFileLocation = path.resolve(__dirname, 'features');
 
-        beforeAll(() => {
-            createFeatureFiles(featureFileLocation)
+        beforeAll((done) => {
+            createFeatureFiles(featureFileLocation).then(() => {
+                done();
+            });
+        });
+
+        afterAll((done) => {
+            clearFeatureFiles(featureFileLocation).then(() => {
+                done();
+            });
         });
 
         it('should fulfill a promise if the file was successfully deleted', (done) => {
@@ -118,12 +133,17 @@ describe('fs-utils', () => {
 
 
     describe('clearOutputDirectory()', () => {
-        const featureFileLocation = path.resolve(__dirname, 'features');
 
         beforeAll((done) => {
             createFeatureFiles(featureFileLocation).then(() => {
                 done();
             })
+        });
+
+        afterAll((done) => {
+            clearFeatureFiles(featureFileLocation).then(() => {
+                done();
+            });
         });
 
         it('should fulfill a promise if the files were deleted successfully', (done) => {
