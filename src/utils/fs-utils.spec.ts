@@ -66,7 +66,7 @@ describe('fs-utils', () => {
         it('should return only files ending with .feature given a directory', (done) => {
             fsUtils.listFeatureFiles(featureFileLocation)
                 .then((files) => {
-                    expect(files).toEqual(['first.feature', 'second.feature', 'third.feature']);
+                    expect(files).toEqual(['file-0.feature', 'file-1.feature', 'file-2.feature']);
                     done();
                 })
                 .catch(() => {
@@ -104,7 +104,7 @@ describe('fs-utils', () => {
         });
 
         it('should fulfill a promise if the file was successfully deleted', (done) => {
-            const existingFile = path.resolve(featureFileLocation, 'first.feature');
+            const existingFile = path.resolve(featureFileLocation, 'file-0.feature');
             fsUtils.deleteFile(existingFile)
                 .then(() => {
                     const featureFiles = fs.readdirSync(featureFileLocation);

@@ -3,20 +3,20 @@ import { PathLike } from "fs";
 import * as path from "path";
 
 // TODO make this function more async, do not feel like dealing with fs.exists being deprecated right now.
-export function createFeatureFiles(featureFilePath: PathLike): Promise<any> {
+export function createFeatureFiles(featureFilePath: PathLike, amount: number = 3): Promise<any> {
     return new Promise((resolve, reject) => {
         try {
-            const featureFiles = ['first.feature', 'second.feature', 'third.feature'];
-
             if (!fs.existsSync(featureFilePath)) {
                 fs.mkdirSync(featureFilePath);
             }
 
-            featureFiles.forEach((fileName) => {
+            for (let i = 0; i < amount; i++) {
+                const fileName = `file-${i}.feature`;
                 const fileLocation = path.resolve(featureFilePath, fileName);
                 fs.writeFileSync(fileLocation, fileName);
-                resolve();
-            });
+            }
+
+            resolve();
         } catch (error) {
             console.error('TESTS SHOULD BE FAILING, createFeatureFiles() was unable to do its job: ', error);
             reject(error);
@@ -51,4 +51,13 @@ export function clearFeatureFiles(featureFilePath: PathLike): Promise<any> {
             reject(error);
         }
     });
+}
+
+export function fakeAsync(min: number, max: number, callback: Function): void {
+    min = Math.ceil(min);
+    max = Math.floor(max);
+    const randomTime = Math.floor(Math.random() * (max - min + 1)) + min;
+    setTimeout(() => {
+        callback();
+    }, randomTime)
 }

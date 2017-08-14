@@ -16,7 +16,7 @@ class CukesJsCli {
         cli
             .version(packageVersion)
             .option('-f --features [featureDirectory]', 'Path to look for .feature files', this.getOption)
-            .option('-p --processes [maxProcesses]', 'Maximum number of processes to run features against', this.getOption)
+            .option('-c --concurrency [concurrency]', 'Maximum number of processes to run features against', this.getOption)
             .parse(process.argv);
         this.cucumberExecutor.execute(cli);
     }
