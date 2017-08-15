@@ -39,8 +39,8 @@ export class CucumberExecutor {
                 this.executeFeature(file, cucumberExecutable).then(() => {
                     this.featuresExecutedCount++;
                     if (this.featureCount === this.featuresExecutedCount) {
-                        resolve();
                         new CucumberReporter(reportGenerator).generate();
+                        resolve();
                     } else {
                         const nextFileToExecute = this.featureFiles[this.concurrency + this.featuresExecutedCount - 1];
                         if (nextFileToExecute) {
